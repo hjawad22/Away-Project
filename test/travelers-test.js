@@ -40,6 +40,6 @@ describe('User Repository', () => {
             "name": "Tiffy Grout",
             "travelerType": "thrill-seeker"
        }); 
-    }) 
+    }); 
 });
 

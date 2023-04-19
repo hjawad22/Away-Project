@@ -22,7 +22,7 @@ const travelersTestData = [{
     "id": 5,
     "name": "Tiffy Grout",
     "travelerType": "thrill-seeker"
-    }
+  }
 ];
 
     export default travelersTestData;
