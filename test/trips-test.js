@@ -3,11 +3,12 @@ import {
 } from 'chai';
 import Trips from '../src/classes/trips';
 import tripsData from '../test/trips-test-data';
+import destinationData from '../test/destination-test-data';
 
 describe('Travelers', () => {
     let trips;
     beforeEach(() => {
-      trips = new Trips(tripsData);
+      trips = new Trips(tripsData, destinationData);
     });
 
     it('should be a function', () => {
@@ -77,5 +78,10 @@ describe('Travelers', () => {
         "status": "approved",
         "suggestedActivities": []
         }]) 
+    })
+
+    it('should return total cost of user trip', () => {
+      expect(trips.getTotalCostOfTrips(35)).to.equal(4565)
+      expect(trips.getTotalCostOfTrips(3)).to.equal(4543)
     })
 });
