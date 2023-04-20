@@ -1,31 +1,44 @@
 class Trips {
-    constructor(tripData, destinationData) {
-        this.data = tripData
+    constructor(tripsData, destinationData) {
+        this.data = tripsData
         this.destinationData = destinationData
     }
     
    getTripByTraveler(travelerID) {
-    const trip = this.data.filter(trip => {
+    const trips = this.data.filter(trip => {
     return trip.userID === travelerID
   })
-   return trip
+    return trips
   }
+  
 
-  getUserTripByStatus(travelerID, status){
+  getTravelerTripByStatus(travelerID, status){
     const userTrips = this.getTripByTraveler(travelerID)
-    const status= userTrips.filter(trip => {
+    const tripByStatus = userTrips.filter(trip => {
       return trip.status === status
     })
   return tripByStatus
   }
 
-  getTripByDate(travelerID, status, date) {
-    const userTrips = this.getTripByTraveler(travelerID)
-    const tripByDate = userTrips.filter(trip => {
-      return trip.date === date && trip.status === status
-    })
-    return tripByDate
+  getTripByDate(travelerID, pastOrUpcoming, date) {
+    let approvedTrips = this.getTravelerTripByStatus(travelerID, 'approved');
+    if (pastOrUpcoming === 'past') {
+      return approvedTrips.filter(trip => trip.date < date);
+    } else if (pastOrUpcoming === 'upcoming') {
+      return approvedTrips.filter(trip => trip.date > date);
+    }
   }
-}
 
+  getTotalCostOfTrips(travelerId) {
+    const userTrip = this.getTripByTraveler(travelerId)
+    const total = userTrip((acc, trip) => {
+    const destination = this.destinationData.find(destination => destination.id === trip.destinationID);
+    return acc + (destination.estimatedLodgingCostPerDay * trip.duration + destination.estimatedFlightCostPerPerson * trip.travelers);
+      }, 0);
+  
+  return total
+  }
+
+}
+export default Trips;
 
