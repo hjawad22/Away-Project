@@ -31,3 +31,5 @@ const destinationData = [{
     "alt": "people buying oranges and other fruit from a street vendor"
     }
     ]
+
+    export default destinationData;
