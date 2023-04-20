@@ -1,7 +1,7 @@
 class Trips {
     constructor(tripsData, destinationData) {
-        this.data = tripsData
-        this.destinationData = destinationData
+        this.data = tripsData;
+        this.destinationData = destinationData;
     }
     
    getTripByTraveler(travelerID) {
@@ -11,7 +11,6 @@ class Trips {
     return trips
   }
   
-
   getTravelerTripByStatus(travelerID, status){
     const userTrips = this.getTripByTraveler(travelerID)
     const tripByStatus = userTrips.filter(trip => {
@@ -31,12 +30,12 @@ class Trips {
 
   getTotalCostOfTrips(travelerId) {
     const userTrip = this.getTripByTraveler(travelerId)
-    const total = userTrip((acc, trip) => {
+    const totalCost = userTrip.reduce((acc, trip) => {
     const destination = this.destinationData.find(destination => destination.id === trip.destinationID);
     return acc + (destination.estimatedLodgingCostPerDay * trip.duration + destination.estimatedFlightCostPerPerson * trip.travelers);
       }, 0);
   
-  return total
+   return Math.round(totalCost * 1.1 * 100) / 100;
   }
 
 }
