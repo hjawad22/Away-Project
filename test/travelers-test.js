@@ -4,8 +4,8 @@ import {
 import Travelers from '../src/classes/travelers'
 import travelersTestData from './travelers-test-data';
 
-describe('User Repository', () => {
-    var test;
+describe('Travelers', () => {
+    let test;
     beforeEach(() => {
       test = new Travelers(travelersTestData);
     });
