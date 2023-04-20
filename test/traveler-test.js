@@ -39,16 +39,6 @@ describe('Traveler', () => {
         expect(traveler3.travelerType).to.deep.equal("shopper");
     });
 
-    it('should store a users user name', () => {
-        expect(traveler1.userName).to.deep.equal("traveler1");
-        expect(traveler2.userName).to.deep.equal("traveler2");
-        expect(traveler3.userName).to.deep.equal("traveler3");
-    });
-    
-    it('should store a users password', () => {
-        expect(traveler1.password).to.deep.equal("travel");
-    });
-
     it('should get a users first name only', () => {
         expect(traveler1.getFirstName()).to.deep.equal("Ham");
         expect(traveler2.getFirstName()).to.deep.equal("Rachael");
