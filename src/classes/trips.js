@@ -15,15 +15,15 @@ class Trips {
   
   getTotalCostOfTrips(travelerId) {
     const userTrips = this.getTripByTraveler(travelerId)
-    if (!userTrips) {
-      return 'Trips not found';
-    }
     const totalCost = userTrips.reduce((acc, trip) => {
     const destination = this.destinationData.find(destination => destination.id === trip.destinationID);
     return acc + (destination.estimatedLodgingCostPerDay * trip.duration + destination.estimatedFlightCostPerPerson * trip.travelers);
       }, 0);
   
    const final = Math.round(totalCost * 1.1 * 100) / 100
+   if(!final) {
+    return 'No trips to total'
+   }
    return `$${final.toFixed()}`
   }
 
@@ -45,7 +45,7 @@ class Trips {
     return this.destinationData
   }
 
-  getDestination(desID) { //trip.destinationID 28
+  getDestination(desID) { 
     const destination = this.destinationData.find(location => {
       return location.id === desID
     })
