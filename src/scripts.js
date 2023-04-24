@@ -2,8 +2,8 @@
 import './css/styles.css';
 
 // Image Imports
-import './images/hero.jpg'
-import './images/sign-in.jpg'
+import './images/hero.jpg';
+import './images/sign-in.jpg';
 
 // Classes Imports
 import Travelers from './classes/travelers';
@@ -26,35 +26,37 @@ let traveler;
 let travelers;
 let trips;
 let userName;
-let password = 'travel';
 
 // Query Selectors
+const bookButton = document.querySelector(".book-button");
+const quoteButton = document.querySelector(".quote-button");
+const loginButton = document.querySelector(".login-button");
 
-const bookButton = document.querySelector(".book-button")
-const quoteButton = document.querySelector(".quote-button")
-
-// Event Listener
+// Event Listeners
+loginButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  loginUser();
+})
 
 bookButton.addEventListener('click' , function (e) {
     e.preventDefault();
     createNewTrip();
 })
 
-quoteButton.addEventListener('click', function(e){
+quoteButton.addEventListener('click', function(e) {
    e.preventDefault();
    displayTripEstimatedCost();
 })
-
 
 // Fetch Requests 
 
   Promise.all([fetchTravelers(), fetchTrips(), fetchDestinations()])
   .then(([travelersData, tripsData, destinationData]) => {
   travelers = new Travelers(travelersData.travelers)
-  traveler = new Traveler(travelers.getTraveler(1))
-  userName = `travel${traveler.id}`
+  traveler = new Traveler(travelers.getTraveler(50))
   displayGreeting(traveler)
-
+  userName = `travel${traveler.id}`
+  console.log(userName)
 
   trips = new Trips(tripsData.trips, destinationData.destinations)
   createDestinationsDropDown()
@@ -67,6 +69,23 @@ quoteButton.addEventListener('click', function(e){
 
 
 // Functions 
+
+function loginUser() {
+const password = 'travel'
+const userNameInput = document.querySelector(".user-name").value
+const userPassword = document.querySelector(".user-password").value
+const loginPage = document.querySelector(".login-page")
+const dashboard = document.querySelector(".dashboard")
+const loginMessage = document.querySelector(".login-message")
+
+if(userPassword === password && userNameInput === userName) {
+ dashboard.classList.remove("hidden")
+ loginPage.classList.add("hidden")
+ console.log("clicked")
+} else {
+ loginMessage.innerText = `Opps wrong username or password!`
+}
+}
 
 function displayGreeting(traveler) {
   const greetingMessage = document.querySelector(".greeting-header")
@@ -162,7 +181,7 @@ function createNewTrip() {
  .then( ([travelersData, tripsData, destinationData]) => {
   travelers = new Travelers(travelersData.travelers)
   console.log(travelers)
-  traveler = new Traveler(travelers.getTraveler(1))
+  traveler = new Traveler(travelers.getTraveler(50))
   trips = new Trips(tripsData.trips, destinationData.destinations)
   console.log(trips)
   displayTrips(traveler)
