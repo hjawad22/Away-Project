@@ -52,72 +52,70 @@ quoteButton.addEventListener('click', function(e) {
 
   Promise.all([fetchTravelers(), fetchTrips(), fetchDestinations()])
   .then(([travelersData, tripsData, destinationData]) => {
-  travelers = new Travelers(travelersData.travelers)
-  traveler = new Traveler(travelers.getTraveler(50))
-  displayGreeting(traveler)
-  userName = `travel${traveler.id}`
-  console.log(userName)
+  travelers = new Travelers(travelersData.travelers);
+  traveler = new Traveler(travelers.getTraveler(50));
+  displayGreeting(traveler);
+  userName = `travel${traveler.id}`;
 
-  trips = new Trips(tripsData.trips, destinationData.destinations)
-  createDestinationsDropDown()
-  displayTripTotal(traveler)
-  displayTrips(traveler)
+  trips = new Trips(tripsData.trips, destinationData.destinations);
+  createDestinationsDropDown();
+  displayTripTotal(traveler);
+  displayTrips(traveler);
 })
 .catch(error => {
   console.error('There was a problem with the fetch', error);
-})
+});
 
 
 // Functions 
 
 function loginUser() {
-const password = 'travel'
-const userNameInput = document.querySelector(".user-name").value
-const userPassword = document.querySelector(".user-password").value
-const loginPage = document.querySelector(".login-page")
-const dashboard = document.querySelector(".dashboard")
-const loginMessage = document.querySelector(".login-message")
+  const password = 'travel'
+  const userNameInput = document.querySelector(".user-name").value;
+  const userPassword = document.querySelector(".user-password").value;
+  const loginPage = document.querySelector(".login-page");
+  const dashboard = document.querySelector(".dashboard");
+  const loginMessage = document.querySelector(".login-message");
 
-if(userPassword === password && userNameInput === userName) {
- dashboard.classList.remove("hidden")
- loginPage.classList.add("hidden")
- console.log("clicked")
-} else {
- loginMessage.innerText = `Opps wrong username or password!`
-}
-}
+  if(userPassword === password && userNameInput === userName) {
+    dashboard.classList.remove("hidden");
+    loginPage.classList.add("hidden");
+  } else {
+   loginMessage.innerText = `Opps wrong username or password!`;
+  }
+};
 
 function displayGreeting(traveler) {
-  const greetingMessage = document.querySelector(".greeting-header")
+  const greetingMessage = document.querySelector(".greeting-header");
   greetingMessage.innerText = `
   Wonderful to see you again, ${traveler.getFirstName()}!
- `
-}
+ `;
+};
 
 function displayTripTotal(traveler) {
-  const totalMessage = document.querySelector(".total-spent-message") 
-  totalMessage.innerText = `Total Spent On Your Trips: ${trips.getTotalCostOfTrips(traveler.id)}`
-}
+  const totalMessage = document.querySelector(".total-spent-message");
+  totalMessage.innerText = `Total Spent On Your Trips: ${trips.getTotalCostOfTrips(traveler.id)}`;
+};
 
 function displayTripEstimatedCost() {
-  const desInput = parseInt(document.querySelector(".destinations-picker").value)
-  const numOfPeople = parseInt(document.getElementById("numOfTravelers").value)
-  const startDate = document.getElementById("start").value
-  const formatedStartDate = dayjs(startDate).format("YYYY/MM/DD")
-  const endDate = document.getElementById("end").value
-  const formatedEndDate = dayjs(endDate).format("YYYY/MM/DD")
-  const duration = dayjs(formatedEndDate)
-  const durationTotal= parseInt(duration.diff(formatedStartDate, "day"))
-  const estimateMessage =  document.querySelector(".estimated-total")
+  const desInput = parseInt(document.querySelector(".destinations-picker").value);
+  const numOfPeople = parseInt(document.getElementById("numOfTravelers").value);
+  const startDate = document.getElementById("start").value;
+  const formatedStartDate = dayjs(startDate).format("YYYY/MM/DD");
+  const endDate = document.getElementById("end").value;
+  const formatedEndDate = dayjs(endDate).format("YYYY/MM/DD");
+  const duration = dayjs(formatedEndDate);
+  const durationTotal= parseInt(duration.diff(formatedStartDate, "day"));
+  const estimateMessage =  document.querySelector(".estimated-total");
   estimateMessage.innerText = `Trip Estimation: ${trips.getCostOfTrip(desInput, durationTotal, numOfPeople)}`
-}
+};
 
 
 function displayTrips(traveler) {
-  const allTrips = document.querySelector(".trips")
+  const allTrips = document.querySelector(".trips");
   allTrips.innerHTML = " "
   trips.getTripByTraveler(traveler.id).forEach(trip => {
-  const tripCard = document.createElement("article")
+  const tripCard = document.createElement("article");
   tripCard.classList.add("all-trips")
   allTrips.appendChild(tripCard)
   tripCard.innerHTML += `
@@ -125,27 +123,27 @@ function displayTrips(traveler) {
     <p class="card">Date:</p> <p class="card">${trip.date} </p>
     <p class="card">Duration:</p> <p class="card">${trip.duration} days</p>
     <p class="card">Status:</p> <p class="card pending-message">${trip.status} </p>
-   `
-  })
-  }
+   `;
+  });
+};
 
 function createDestinationsDropDown() {
   const destinationSelector = document.querySelector(".destinations-picker");
   trips.getDestinations().forEach(destination => {
   destinationSelector.innerHTML += `<option value="${destination.id}">${destination.destination}</option>`
-  })
-}
+  });
+};
   
 function createNewTrip() {
-   const destinationInput = document.querySelector(".destinations-picker").value
-   const numOfTravelers = document.getElementById("numOfTravelers").value
-   const tripID = trips.data.length += 1
-   const startDate = document.getElementById("start").value
-   const formatedStartDate = dayjs(startDate).format("YYYY/MM/DD")
-   const endDate = document.getElementById("end").value
-   const formatedEndDate = dayjs(endDate).format("YYYY/MM/DD")
-   const duration = dayjs(formatedEndDate)
-   const totalDuration= duration.diff(formatedStartDate, "day")
+   const destinationInput = document.querySelector(".destinations-picker").value;
+   const numOfTravelers = document.getElementById("numOfTravelers").value;
+   const tripID = trips.data.length += 1;
+   const startDate = document.getElementById("start").value;
+   const formatedStartDate = dayjs(startDate).format("YYYY/MM/DD");
+   const endDate = document.getElementById("end").value;
+   const formatedEndDate = dayjs(endDate).format("YYYY/MM/DD");
+   const duration = dayjs(formatedEndDate);
+   const totalDuration= duration.diff(formatedStartDate, "day");
 
    const object = {
     id: tripID ,
@@ -172,21 +170,19 @@ function createNewTrip() {
     return response.json();
   })
   .then(data => {
-    console.log(data)
+    console.log(data);
   })
   .catch(error => {
     console.error('Error posting trip:', error);
   })
  return Promise.all([fetchTravelers(), fetchTrips(), fetchDestinations()])
  .then( ([travelersData, tripsData, destinationData]) => {
-  travelers = new Travelers(travelersData.travelers)
-  console.log(travelers)
-  traveler = new Traveler(travelers.getTraveler(50))
-  trips = new Trips(tripsData.trips, destinationData.destinations)
-  console.log(trips)
-  displayTrips(traveler)
-  displayTripTotal(traveler)
-})
-}
+  travelers = new Travelers(travelersData.travelers);
+  traveler = new Traveler(travelers.getTraveler(50));
+  trips = new Trips(tripsData.trips, destinationData.destinations);
+  displayTrips(traveler);
+  displayTripTotal(traveler);
+ });
+};
 
 
