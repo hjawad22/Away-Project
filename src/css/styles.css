@@ -4,18 +4,47 @@
   font-family: 'Martel Sans', sans-serif;
 }
 
-/* Flexbox container */
+/* Login container */
+
+.login-main {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.hidden {
+  display: none; 
+}
+
+.login-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 50%;
+ 
+}
+
+.login-image {
+  background-image: url("../images/sign-in.jpg");
+  object-fit: fill;  
+  background-size: 100% ;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 50%;
+}
+
+/* Dashboard container */
 
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 3px blue solid; */
   height: 100vh
 }
 
 .booking-area {
-  /* border: 2px red solid; */
   height: 60%;
   width: 100%;
   background-image: url("../images/hero.jpg");
@@ -26,7 +55,6 @@
  }
 
 .trips-area {
-  /* border: 2px red solid; */
   height: 40%;
   width: 100%; 
   padding: 4% 0 0 4%;
@@ -38,7 +66,9 @@
   flex-direction: column;
 }
 
-.book-button,.quote-button {
+/* Buttons */
+
+.book-button,.quote-button,.login-button {
   margin-top: 1%;
   padding: 7px;
   background-color: rgb(0, 101, 77);
@@ -48,6 +78,18 @@
   width: 200px;
 }
 
+.login-button {
+  margin-top: 1%;
+  padding: 7px;
+  background-color: rgb(0, 101, 77);
+  color: rgb(255, 255, 255);
+  border-radius: 10px 10px 10px 10px;
+  border-color: transparent;
+  width: 400px;
+}
+
+/* Input fields */
+
 .destinations-picker, .style {
   padding: 3px;
   border-radius: 10px 10px 10px 10px;
@@ -55,7 +97,16 @@
   border: .5px solid grey;
   width: 200px;
 }
+.user-name,.user-password {
+  padding: 3px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgb(255, 255, 255); 
+  border: .5px solid grey;
+  width: 400px;
 
+}
+
+/* All trips containers */
 
 .all-trips {
   border-radius: 10px 10px 10px 10px;
@@ -68,10 +119,16 @@
   padding: 2%;
 }
 
+/* text */
+
 .pending-message {
   color: rgb(195, 0, 0);
 }
 
 .estimated-total {
   color: rgb(0, 0, 0);
+}
+
+.login-title {
+ font-weight: lighter;
 }
