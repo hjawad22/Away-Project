@@ -139,8 +139,7 @@ function createNewTrip() {
     suggestedActivities: []
    }
 
-  
-  fetch("http://localhost:3001/api/v1/trips", {
+   fetch("http://localhost:3001/api/v1/trips", {
     method: 'POST',
     body: JSON.stringify(object),
     headers: {
@@ -149,15 +148,15 @@ function createNewTrip() {
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Failed to post`);
     }
-    response.json()
+    return response.json();
   })
   .then(data => {
     console.log(data)
   })
   .catch(error => {
-    console.error('There was a problem with the fetch', error)
+    console.error('Error posting trip:', error);
   })
  return Promise.all([fetchTravelers(), fetchTrips(), fetchDestinations()])
  .then( ([travelersData, tripsData, destinationData]) => {
