@@ -48,8 +48,8 @@ describe('Trips', () => {
     });
 
     it('should return total cost of user trip', () => {
-      expect(trips.getTotalCostOfTrips(35)).to.equal('$4565')
-      expect(trips.getTotalCostOfTrips(3)).to.equal('$4543')
+      expect(trips.getTotalCostOfTrips(35)).to.equal('$4565');
+      expect(trips.getTotalCostOfTrips(3)).to.equal('$4543');
     })
 
     it('should return an error message if no trips exist to total', () => {

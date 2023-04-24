@@ -1,20 +1,18 @@
-
-
 class Trips {
     constructor(tripsData, destinationData) {
-        this.data = tripsData;
-        this.destinationData = destinationData;
+      this.data = tripsData;
+      this.destinationData = destinationData;
     }
     
    getTripByTraveler(travelerID) {
     const trips = this.data.filter(trip => {
-    return trip.userID === travelerID
+    return trip.userID === travelerID;
   })
-    return trips
+    return trips;
   }
-  
+
   getTotalCostOfTrips(travelerId) {
-    const userTrips = this.getTripByTraveler(travelerId)
+    const userTrips = this.getTripByTraveler(travelerId);
     const totalCost = userTrips.reduce((acc, trip) => {
     const destination = this.destinationData.find(destination => destination.id === trip.destinationID);
     return acc + (destination.estimatedLodgingCostPerDay * trip.duration + destination.estimatedFlightCostPerPerson * trip.travelers);
@@ -22,11 +20,10 @@ class Trips {
   
    const final = Math.round(totalCost * 1.1 * 100) / 100
    if(!final) {
-    return 'No trips to total'
+    return 'No trips to total';
    }
-   return `$${final.toFixed()}`
+   return `$${final.toFixed()}`;
   }
-
 
   getCostOfTrip(destinationId, duration, numOfTravelers) {
     const destination = this.destinationData.find(destination => destination.id === destinationId);
@@ -36,23 +33,22 @@ class Trips {
     const totalCost = destination.estimatedLodgingCostPerDay * duration + destination.estimatedFlightCostPerPerson * numOfTravelers;
     const final = Math.round(totalCost * 1.1 * 100) / 100;
     if(!final) {
-      return `Please Fill Out Form`
+      return `Please Fill Out Form`;
     }
     return `$${final.toFixed()}`;
-}
+  }
 
   getDestinations() {
-    return this.destinationData
+    return this.destinationData;
   }
 
   getDestination(desID) { 
     const destination = this.destinationData.find(location => {
-      return location.id === desID
+      return location.id === desID;
     })
     return destination;
   }
-  
-  
 }
- export default Trips;
+
+export default Trips;
 
