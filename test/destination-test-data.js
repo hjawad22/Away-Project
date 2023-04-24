@@ -29,7 +29,6 @@ const destinationData = [{
     "estimatedFlightCostPerPerson": 830,
     "image": "https://images.unsplash.com/photo-1517821362941-f7f753200fef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80",
     "alt": "people buying oranges and other fruit from a street vendor"
-    }
-    ]
+    }]
 
     export default destinationData;

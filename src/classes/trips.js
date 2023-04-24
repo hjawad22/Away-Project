@@ -1,43 +1,54 @@
 class Trips {
     constructor(tripsData, destinationData) {
-        this.data = tripsData;
-        this.destinationData = destinationData;
+      this.data = tripsData;
+      this.destinationData = destinationData;
     }
     
    getTripByTraveler(travelerID) {
     const trips = this.data.filter(trip => {
-    return trip.userID === travelerID
+    return trip.userID === travelerID;
   })
-    return trips
-  }
-  
-  getTravelerTripByStatus(travelerID, status){
-    const userTrips = this.getTripByTraveler(travelerID)
-    const tripByStatus = userTrips.filter(trip => {
-      return trip.status === status
-    })
-  return tripByStatus
-  }
-
-  getTripByDate(travelerID, pastOrUpcoming, date) {
-    let approvedTrips = this.getTravelerTripByStatus(travelerID, 'approved');
-    if (pastOrUpcoming === 'past') {
-      return approvedTrips.filter(trip => trip.date < date);
-    } else if (pastOrUpcoming === 'upcoming') {
-      return approvedTrips.filter(trip => trip.date > date);
-    }
+    return trips;
   }
 
   getTotalCostOfTrips(travelerId) {
-    const userTrip = this.getTripByTraveler(travelerId)
-    const totalCost = userTrip.reduce((acc, trip) => {
+    const userTrips = this.getTripByTraveler(travelerId);
+    const totalCost = userTrips.reduce((acc, trip) => {
     const destination = this.destinationData.find(destination => destination.id === trip.destinationID);
     return acc + (destination.estimatedLodgingCostPerDay * trip.duration + destination.estimatedFlightCostPerPerson * trip.travelers);
       }, 0);
   
-   return Math.round(totalCost * 1.1 * 100) / 100;
+   const final = Math.round(totalCost * 1.1 * 100) / 100
+   if(!final) {
+    return 'No trips to total';
+   }
+   return `$${final.toFixed()}`;
   }
 
+  getCostOfTrip(destinationId, duration, numOfTravelers) {
+    const destination = this.destinationData.find(destination => destination.id === destinationId);
+    if (!destination) {
+        throw new Error(`Destination with id ${destinationId} not found`);
+    }
+    const totalCost = destination.estimatedLodgingCostPerDay * duration + destination.estimatedFlightCostPerPerson * numOfTravelers;
+    const final = Math.round(totalCost * 1.1 * 100) / 100;
+    if(!final) {
+      return `Please Fill Out Form`;
+    }
+    return `$${final.toFixed()}`;
+  }
+
+  getDestinations() {
+    return this.destinationData;
+  }
+
+  getDestination(desID) { 
+    const destination = this.destinationData.find(location => {
+      return location.id === desID;
+    })
+    return destination;
+  }
 }
+
 export default Trips;
 

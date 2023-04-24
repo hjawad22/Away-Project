@@ -4,13 +4,37 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Martel+Sans&family=Ysabeau:wght@200;300;400&display=swap" rel="stylesheet">
+  <title>Away</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+  <div class="main-container">
+    <div class="booking-area" aria-label="a photo of greece">
+      <h1 class="logo">Away</h1>
+      <h2>Your Adventure Awaits You</h2>
+      <h3 class="greeting-header"></h3>
+      <form>
+        <label for="numOfTravelers" class="label">Number of Travelers</label>
+        <input id="numOfTravelers" class="style" type="number" name="guest-number" min="1" max="60,000" required>
+        <label for="destinations" class="label">Destinations</label>
+        <select id ="destinations" class="destinations-picker"></select>
+        <label for="start" class="label">Start Date:</label>
+        <input type="date" id="start" class="style"name="date-start" min="2023-04-25" aria-label="Choose a start date" required>
+        <label for="end" class="label">End Date:</label>
+        <input type="date" id="end" class="style" name="date-end" min="2023-04-25" aria-label="Choose a end date" required>
+        <button class="book-button"><strong>Book Your Next Adventure</strong></button>
+        <button class="quote-button"><strong>View Trip Estimation</strong></button>
+        <p class="estimated-total"></p>
+     </form>
+   </div>
+    <div class="trips-area">
+      <h2>Your Trips</h2>
+      <p class="total-spent-message"><strong></strong></p>
+      <div class="trips"></div>
+    </div>
+  </div>
   <script src="bundle.js"></script>
-
 </body>
 </html>
